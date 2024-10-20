@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:jwellery_app/model/categoriestypes_model.dart';
+import 'package:jwellery_app/app/model/categoriestypes_model.dart';
 import 'dart:developer';
 
 class CategoriesApiProvider {

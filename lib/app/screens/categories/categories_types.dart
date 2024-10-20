@@ -23,15 +23,13 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
     'assets/images/PS13.jpg',
     'assets/images/PS47.jpg'
   ];
-    late CategoriesTypesBloc categoriesTypesBloc;
+  late CategoriesTypesBloc categoriesTypesBloc;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-     categoriesTypesBloc = BlocProvider.of<CategoriesTypesBloc>(context);
+    categoriesTypesBloc = BlocProvider.of<CategoriesTypesBloc>(context);
     categoriesTypesBloc.add(FetchCategoriesTypes());
-    
-   
   }
 
   @override
@@ -49,96 +47,118 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
       body: Column(
         children: [
           BlocBuilder<CategoriesTypesBloc, CategoriesTypesState>(
-           
             builder: (context, state) {
-               if(state is CategoriesTypesLoading){
-                return const Center(child: CircularProgressIndicator(),);
-              
-            } else if(state is CategoriesTypesLoaded){
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical, // Vertical scrolling
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // Two items per row
-                  childAspectRatio:
-                      0.8, // Adjust to control the height of each item
-                  mainAxisSpacing: 10, // Spacing between rows
-                  crossAxisSpacing: 0, // Spacing between items
-                ),
-                itemCount: state.categoriesTypes!.length,
-                itemBuilder: (context, index) {
-                  // final product = allproducts[index];
-                  log("rishi 1");
+              if (state is CategoriesTypesLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is CategoriesTypesLoaded) {
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical, // Vertical scrolling
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // Two items per row
+                    childAspectRatio:
+                        0.8, // Adjust to control the height of each item
+                    mainAxisSpacing: 10, // Spacing between rows
+                    crossAxisSpacing: 0, // Spacing between items
+                  ),
+                  itemCount: state.categoriesTypes!.length,
+                  itemBuilder: (context, index) {
+                    // final product = allproducts[index];
+                    log("rishi 1");
 
-                  return GestureDetector(
-                    onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const CategoriesitemsListScreen()));
-                      // SharedPreferences prefs = await SharedPreferences.getInstance();
-                      // prefs.setString('productSlug', product.slug.toString());
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 2),
-                      child: Card(
-                        elevation: 3,
-                        shadowColor: Colors.black.withOpacity(0.5),
-                        color: Colors.white,
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(13),
-                                      topRight: Radius.circular(13)),
-                                  child: CachedNetworkImage(
-                                    errorWidget: (context,url,error)=>
-                                    Image.asset("assets/images/PS13.jpg",fit: BoxFit.cover,),
-                                   imageUrl:  state.categoriesTypes![index].imageUrl,
-                                    height: 128, // Adjusted for grid
-                                    // Full width for grid items
-                                    fit: BoxFit.cover,
-                                  ),
-                                  
-                                  
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 2),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
+                    return GestureDetector(
+                      onTap: () async {
+                        Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        const CategoriesitemsListScreen(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, -1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(
+                                    begin: begin,
+                                    end: end,
+                                  ).chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+                                  return SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                }));
+                        // SharedPreferences prefs = await SharedPreferences.getInstance();
+                        // prefs.setString('productSlug', product.slug.toString());
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 2),
+                        child: Card(
+                          elevation: 3,
+                          shadowColor: Colors.black.withOpacity(0.5),
+                          color: Colors.white,
+                          child: Stack(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(13),
+                                        topRight: Radius.circular(13)),
+                                    child: CachedNetworkImage(
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                        "assets/images/PS13.jpg",
+                                        fit: BoxFit.cover,
                                       ),
-                                      Text(
-                                        state.categoriesTypes![index].name,
-                                        style: fontNormalBlack,
-                                        maxLines: 1,
-                                      ),
-                                    ],
+                                      imageUrl: state
+                                          .categoriesTypes![index].imageUrl,
+                                      height: 128, // Adjusted for grid
+                                      // Full width for grid items
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 2),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          state.categoriesTypes![index].name,
+                                          style: fontNormalBlack,
+                                          maxLines: 1,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              );
-            } else if(state is CategoriesTypesError){
-              return const Center(child: Text("state.errorMessage"),);
-            }else{
-              return const SizedBox(
-                height: 250,
-                child:  Center(child: Text("No Products available"),));
-            }
+                    );
+                  },
+                );
+              } else if (state is CategoriesTypesError) {
+                return const Center(
+                  child: Text("state.errorMessage"),
+                );
+              } else {
+                return const SizedBox(
+                    height: 250,
+                    child: Center(
+                      child: Text("No Products available"),
+                    ));
+              }
             },
           ),
         ],

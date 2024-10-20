@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jwellery_app/app/wishlist/wishlist_screen.dart';
+import 'package:jwellery_app/app/screens/wishlist/wishlist_screen.dart';
 
 class AppDrawer extends StatefulWidget {
   AppDrawer({super.key});
@@ -174,8 +174,22 @@ class _AppDrawerState extends State<AppDrawer> {
               onTap: () {
                 Navigator.pop(context);
                 // tabManager.onTabChanged(1);
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context)=>const WishListScreen()));
+                      Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              pageBuilder: (context,animation,secondaryAnimation) =>
+                                  const WishListScreen(),
+                                  transitionsBuilder: (context,animation,secondaryAnimation,child){
+                                    const begin=Offset(0.0,1.0);
+                                    const end =Offset.zero;
+                                    const curve=Curves.ease;
+                                    var tween = Tween(begin: begin,end: end,).chain(CurveTween(curve: curve));
+                                    var offsetAnimation= animation.drive(tween);
+                                    return SlideTransition(position: offsetAnimation,
+                                    child: child,);
+                                  }
+                                  
+                                  ));
               
               },
               leading: const Icon(Icons.favorite_outline_rounded),

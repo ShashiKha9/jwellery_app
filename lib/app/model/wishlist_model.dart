@@ -1,4 +1,4 @@
-import 'package:jwellery_app/app/wishlist/wishlist_screen.dart';
+import 'package:jwellery_app/app/screens/wishlist/wishlist_screen.dart';
 
 class WishListModel {
   final int id;

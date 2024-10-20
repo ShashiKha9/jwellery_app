@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:jwellery_app/model/categoriestypes_model.dart';
 import 'dart:developer';
 
-import 'package:jwellery_app/model/featured_model.dart';
+import 'package:jwellery_app/app/model/featured_model.dart';
 
 class FeaturedApiProvider {
 

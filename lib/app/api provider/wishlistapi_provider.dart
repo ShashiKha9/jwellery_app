@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'dart:developer';
 
-import 'package:jwellery_app/model/wishlist_model.dart';
+import 'package:jwellery_app/app/model/wishlist_model.dart';
 
 class WishlistApiProvider {
 

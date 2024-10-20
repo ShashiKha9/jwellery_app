@@ -32,7 +32,7 @@ class _CategoriesitemsListScreenState extends State<CategoriesitemsListScreen> {
   @override
   void initState(){
     super.initState();
-     featuredProductBloc = BlocProvider.of<FeaturedProductsBloc>(context);
+     featuredProductBloc = context.read<FeaturedProductsBloc>();
     featuredProductBloc.add(FetchedFeaturedProducts());
 
   }
@@ -56,6 +56,14 @@ class _CategoriesitemsListScreenState extends State<CategoriesitemsListScreen> {
           children: [
            const  SizedBox(
               height: 25,
+            ),
+             Container(
+              height: 80,
+              width: MediaQuery.of(context).size.width/1,
+              decoration: const BoxDecoration(
+                color: Colors.white
+              ),
+              child:  const Center(child: Text("Pendant Gold")),
             ),
             BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
               builder: (context, state) {

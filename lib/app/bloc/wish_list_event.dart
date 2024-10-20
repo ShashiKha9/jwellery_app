@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwellery_app/app/bloc/featured_products_event.dart';
-import 'package:jwellery_app/model/featured_model.dart';
+import 'package:jwellery_app/app/model/featured_model.dart';
 
 abstract class WishListEvent extends Equatable {
   const WishListEvent();
@@ -37,6 +37,7 @@ final class WishListError extends WishListState {
 // bloc
 class WishListBloc extends Bloc<WishListEvent, WishListState> {
   final FeaturedProductsBloc featuredProductsBloc;
+  
   WishListBloc({required this.featuredProductsBloc}) : super(WishListInitial()) {
     on<FetchWishlist>(_onFetchWishlist);
       featuredProductsBloc.stream.listen((state){
@@ -46,17 +47,14 @@ class WishListBloc extends Bloc<WishListEvent, WishListState> {
       });
    
   }
-  void _onFetchWishlist(FetchWishlist event, Emitter<WishListState>state)async{
+  void _onFetchWishlist(FetchWishlist event, Emitter<WishListState>emit)async{
     try{
     if(featuredProductsBloc.state is FeaturedProductsLoaded){
       final featuredProductsState = featuredProductsBloc.state as FeaturedProductsLoaded;
-      final wishlist= featuredProductsState.featuredProducts?.where((feature)=> feature.isFavorite).toList();
-      if(wishlist!=null){
-       emit(WishListLoaded(wishlistProducts: wishlist));
+      final wishlist= featuredProductsState.featuredProducts!.where((feature)=> feature.isFavorite).toList();
+       emit(WishListLoaded(wishlistProducts: wishlist ?? []));
 
-      }else{
-        emit(WishListLoaded(wishlistProducts: []));
-      }
+      
     }else{
           emit(WishListError(message: 'Featured products not loaded yet.'));
 

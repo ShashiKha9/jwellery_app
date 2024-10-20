@@ -1,5 +1,5 @@
 import 'package:jwellery_app/app/api%20provider/wishlistapi_provider.dart';
-import 'package:jwellery_app/model/wishlist_model.dart';
+import 'package:jwellery_app/app/model/wishlist_model.dart';
 
 class WishlistRepository {
   final WishlistApiProvider apiProvider;
